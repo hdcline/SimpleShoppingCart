@@ -10,7 +10,9 @@ var getItemTotal = function (ele) {
   return itemTotal;
 }
 
-var sum = function (acc, x) { return acc + x; };
+var sum = function (acc, x) {
+  return acc + x;
+}
 
 var updateTotal = function (subtract) {
   var itemTotals = [];
@@ -18,8 +20,10 @@ var updateTotal = function (subtract) {
     var itemTotal = getItemTotal(ele);
     itemTotals.push(itemTotal);
   });
+
   var total = itemTotals.reduce(sum) - subtract;
   $('#total').html(total);
+
   return total;
 }
 
@@ -38,6 +42,7 @@ $(document).ready(function () {
   });
 
   var timeout;
+
   $(document).on('input', 'tr input', function () {
     clearTimeout(timeout);
     timeout = setTimeout(function () {
@@ -52,17 +57,19 @@ $(document).ready(function () {
     var price = $(this).children('[name=price]').val();
     var quantity = $(this).children('[name=quantity]').val();
     //console.log(name, shares, cost, marketPrice);
-    $('tbody').append('<tr>' +
-    '<td class="item">' + item + '</td>' +
-    '<td class="price">$<span>' + price + '</span></td>' +
-    '<td class="quantity"><input type="number" value="' + quantity + '" /></td>' +
-    '<td class="item-total"></td>' +
-    '<td><button class="btn btn-light btn-sm cancel">Cancel</button></td>' +
-  '</tr>');
+    $('tbody').append(
+      '<tr>' +
+        '<td class="item">' + item + '</td>' +
+        '<td class="price">$<span>' + price + '</span></td>' +
+        '<td class="quantity"><input type="number" value="' + quantity + '" /></td>' +
+        '<td class="item-total"></td>' +
+        '<td><button class="btn btn-light btn-sm cancel">Cancel</button></td>' +
+      '</tr>');
 
-  updateTotal(0);
-  $(this).children('[name=item]').val('');
-  $(this).children('[name=price]').val('');
-  $(this).children('[name=quantity]').val('');
+    updateTotal(0);
+
+    $(this).children('[name=item]').val('');
+    $(this).children('[name=price]').val('');
+    $(this).children('[name=quantity]').val('');
   });
 });
